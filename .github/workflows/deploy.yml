@@ -14,7 +14,7 @@ jobs:
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: kwazi.ntuli@bis247.co.za
+          username: root
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ~/fastapi-book-project
