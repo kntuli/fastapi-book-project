@@ -37,8 +37,4 @@ jobs:
     - name: connect and pull
       run: ssh ${{ secrets.UBUNTU_USER }}@${{ secrets.UBUNTU_HOST }} " cd ${{ secrets.UBUNTU_WORKDIR }} && docker compose pull && docker compose up -d && exit"
     - name: cleanup
-<<<<<<< HEAD
       run: rm -rf ~/.ssh
-=======
-      run: rm -rf ~/.ssh
->>>>>>> 2e8261cd6a1e517aed683b43d9e9a1c5c5ab345d
