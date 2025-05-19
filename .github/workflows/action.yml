@@ -1,0 +1,40 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{github.actor}}/fastapi-book-project:latest
+
+jobs:
+  publish:
+    name: publish image
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Login
+      run: |
+        echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }}
+        --password-stdin
+    - name: Build and Publish
+      run: |
+        docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+  
+  deploy:
+    needs: publish
+    name: deploy image
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: install ssh keys
+      run: |
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "${{ secrets.UBUNTU_KEY }}" > ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.UBUNTU_HOST }} > .ssh/known_hosts
+    - name: connect and pull
+      run: ssh ${{ secrets.UBUNTU_USER }}@${{ secrets.UBUNTU_HOST }} " cd ${{ secrets.UBUNTU_WORKDIR }} && docker compose pull && docker compose up -d && exit"
+    - name: cleanup
+      run: rm -rf ~/.ssh
