@@ -29,6 +29,6 @@ jobs:
 
     steps:
     - name: connect and pull
-      run: ssh ${{ secrets.UBUNTU_USER }}@${{ secrets.UBUNTU_HOST }} "cd ${{ secrets.UBUNTU_WORKDIR }} && docker-compose pull && docker-compose up -d && exit"
+      run: ssh root@192.168.101.173 "cd /var/www/fastapi-book-project && docker-compose pull && docker-compose up -d && exit"
     - name: cleanup
       run: rm -rf ~/root/ssh
