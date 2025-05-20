@@ -32,8 +32,9 @@ jobs:
         uses: actions/checkout@v3
       - name: SSH into Ubuntu VM
         run: |
-          whoami
-          ls -al
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.UBUNTU_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.UBUNTU_HOST }} > .ssh/known_hosts
         env:
           SSH_PRIVATE_KEY: ${{ secrets.UBUNTU_KEY}}
           USERNAME: root
