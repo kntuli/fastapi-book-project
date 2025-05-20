@@ -28,6 +28,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Multiple commands
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.UBUNTU_HOST}}
+        username: ${{ secrets.UBUNTU_USER}}
+        key: ${{ secrets.UBUNTU_KEY }}
+        port: 22
+        script: |
+          whoami
+          ls -al
     - name: connect and pull
       run: ssh root@192.168.101.173 "cd /var/www/fastapi-book-project && docker-compose pull && docker-compose up -d && exit"
     - name: cleanup
