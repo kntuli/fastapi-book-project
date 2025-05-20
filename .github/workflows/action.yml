@@ -28,11 +28,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: install ssh keys
-      run: |
-        install -m 600 -D /dev/null ~/root/.ssh/id_rsa
-        echo "${{ secrets.UBUNTU_KEY }}" > ~/root/ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.UBUNTU_HOST }} > root/.ssh/known_hosts
     - name: connect and pull
       run: ssh ${{ secrets.UBUNTU_USER }}@${{ secrets.UBUNTU_HOST }} "cd ${{ secrets.UBUNTU_WORKDIR }} && docker-compose pull && docker-compose up -d && exit"
     - name: cleanup
