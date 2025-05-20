@@ -30,6 +30,7 @@ jobs:
     steps:
     - name: install ssh keys
       run: |
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
         echo "${{ secrets.UBUNTU_KEY }}" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.UBUNTU_HOST }} > .ssh/known_hosts
     - name: connect and pull
