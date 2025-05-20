@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v3
       - name: SSH into Ubuntu VM
         run: |
-          ssh -o StrictHostKeyChecking=no -p 22 ${{secrets.UBUNTU_USER}}@${{secrets.UBUNTU_HOST}} -i $HOME/.ssh/id_rsa -t "ls -l"
+          ssh -o StrictHostKeyChecking=no -p 22 ${{secrets.UBUNTU_USER}}@${{secrets.UBUNTU_HOST}} -i root/.ssh/id_rsa -t "ls -l"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY}}
           USERNAME: root
