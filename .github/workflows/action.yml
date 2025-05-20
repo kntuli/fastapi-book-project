@@ -28,14 +28,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Multiple commands
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.UBUNTU_HOST}}
-        username: ${{ secrets.UBUNTU_USER}}
-        password: ${{ secrets.PASSPHRASE }}
-        port: ${{ secrets.PORT }}
-        script: |
-          whoami
-          ls -al
+      - name: SSH into Ubuntu VM
+        run: |
+          ssh -o StrictHostKeyChecking=no -p 22 ${secrets.UBUNTU_USER}@${secrets.UBUNTU_HOST} -i /home/runner/.ssh/id_rsa -t "ls -l"
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.UBUNTU_KEY}}
+          USERNAME: root
+          IP_ADDRESS: ${{ secrets.UBUNTU_HOST }}
+          PORT: 22 # Default SSH port
 
