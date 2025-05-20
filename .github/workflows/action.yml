@@ -30,7 +30,7 @@ jobs:
     steps:
       - name: SSH into Ubuntu VM
         run: |
-          ssh -o StrictHostKeyChecking=no -p 22 ${secrets.UBUNTU_USER}@${secrets.UBUNTU_HOST} -i /home/runner/.ssh/id_rsa -t "ls -l"
+          ssh -o StrictHostKeyChecking=no -p 22 ${{secrets.UBUNTU_USER}}@${{secrets.UBUNTU_HOST}} -i /home/runner/.ssh/id_rsa -t "ls -l"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.UBUNTU_KEY}}
           USERNAME: root
