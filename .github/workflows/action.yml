@@ -33,8 +33,7 @@ jobs:
       with:
         host: ${{ secrets.UBUNTU_HOST}}
         username: ${{ secrets.UBUNTU_USER}}
-        key: ${{ secrets.UBUNTU_KEY }}
-        passphrase: ${{ secrets.PASSPHRASE }}
+        password: ${{ secrets.PASSPHRASE }}
         port: ${{ secrets.PORT }}
         script: |
           whoami
