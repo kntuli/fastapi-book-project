@@ -35,7 +35,7 @@ jobs:
         username: ${{ secrets.UBUNTU_USER}}
         key: ${{ secrets.UBUNTU_KEY }}
         port: 22
-        timeout: "120s"
+        debug: true
         script: |
           whoami
           ls -al
