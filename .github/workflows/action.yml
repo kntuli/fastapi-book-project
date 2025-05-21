@@ -51,5 +51,5 @@ jobs:
             cd /var/www/fastapi-book-project           # Replace with your Docker Compose folder
             sed -i 's/^DOCKER_TAG=.*/DOCKER_TAG=${{ needs.publish.outputs.date }}/' .env
             docker compose up -d
-          EOF 
+          'EOF' 
 
