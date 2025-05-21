@@ -1,10 +1,9 @@
 services:
   fastapi-books-app:
-    build: .
-    ports:
-      - "8084:8084"
-    container_name: fastapi_books_app
+    image: ghcr.io/kntuli/fastapi-book-project:${DOCKER_TAG}  # Replace with your image path
     restart: unless-stopped
+    env_file:
+      - .env 
     # networks:
     #   - app_network
 
