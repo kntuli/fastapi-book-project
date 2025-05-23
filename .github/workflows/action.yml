@@ -41,13 +41,12 @@ jobs:
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Add remote server to known_hosts
-        run: |
-                    ssh-keyscan -v root@192.168.101.173 >> ~/.ssh/known_hosts    # Replace user@remote_server
+      # - name: Add remote server to known_hosts
+      #   run: ssh-keyscan -v root@192.168.101.173 >> ~/.ssh/known_hosts    # Replace user@remote_server
 
       - name: Deploy to server
         run: |
-          ssh root@192.168.101.173 << `EOF`                         # Replace user@remote_server
+          ssh -o "StrictHostKeyChecking no" root@192.168.101.173 << `EOF`                         # Replace user@remote_server
             cd /var/www/fastapi-book-project           # Replace with your Docker Compose folder
             sed -i 's/^DOCKER_TAG=.*/DOCKER_TAG=${{ needs.publish.outputs.date }}/' .env
             docker compose up -d
