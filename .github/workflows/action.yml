@@ -43,7 +43,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Add remote server to known_hosts
         run: |
-                    ssh-keyscan root@192.168.101.173 >> ~/.ssh/known_hosts    # Replace user@remote_server
+                    ssh-keyscan -v root@192.168.101.173 >> ~/.ssh/known_hosts    # Replace user@remote_server
 
       - name: Deploy to server
         run: |
